@@ -124,11 +124,12 @@ module Squall
     # Public: Change the password.
     #
     # id       - ID of the virtual machine
-    # password - New password
+    # options - Params required to change password
+    #           :initial_root_password - The new password to be used
     #
     # Returns a Hash.
-    def change_password(id, password)
-      response = request(:post, "/virtual_machines/#{id}/reset_password.json", query: { new_password: password })
+    def change_password(id, options = {})
+      response = request(:post, "/virtual_machines/#{id}/reset_password.json", default_params(options))
       response['virtual_machine']
     end
 
