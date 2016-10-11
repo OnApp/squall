@@ -4,8 +4,9 @@ module Squall
     # Public: Lists all users.
     #
     # Returns an Array.
-    def list
-      response = request(:get, '/users.json')
+    def list(short = false)
+      url = short ? '/users.json?short' : '/users.json'
+      response = request(:get, url)
       response.collect { |user| user['user'] }
     end
 
