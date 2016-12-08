@@ -328,5 +328,46 @@ module Squall
       response = request(:get, "/virtual_machines/#{id}/network_interfaces/#{network_id}/usage.json")
       response
     end
+    
+    # Public: Get list of *all* backups for a virtual machine.
+    #
+    # id - ID of the virtual machine
+    #
+    # Returns an Array of Backup objects.
+    def backups(id)
+      response = request(:get, "/virtual_machines/#{id}/backups.json")
+      response
+    end
+    
+    # Public: Get list of *normal* backups for a virtual machine.
+    #
+    # id - ID of the virtual machine
+    #
+    # Returns an Array of Backup objects.
+    def normal_backups(id)
+      response = request(:get, "/virtual_machines/#{id}/backups/images.json")
+      response
+    end
+    
+    # Public: Get list of *incremental* backups for a virtual machine.
+    #
+    # id - ID of the virtual machine
+    #
+    # Returns an Array of Backup objects.
+    def incremental_backups(id)
+      response = request(:get, "/virtual_machines/#{id}/backups/files.json")
+      response
+    end
+    
+    # Public: Create backups for a virtual machine.
+    # Type of backup (normal / incremental) depends on the backup setting
+    # Takes incremental backup if incremental backups is enabled
+    #
+    # id - ID of the virtual machine
+    #
+    # Returns nothing.
+    def request_backup(id)
+      request(:post, "/virtual_machines/#{id}/backups.json")
+    end
   end
 end
